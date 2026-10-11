@@ -10,6 +10,12 @@ public class CursorManager : MonoBehaviour
     
     void Start()
     {
+        if (Application.isMobilePlatform)
+        {
+            enabled = false;
+            return;
+        }
+
         Cursor.SetCursor(cursorNormal, hotspot, CursorMode.Auto);
     }
 

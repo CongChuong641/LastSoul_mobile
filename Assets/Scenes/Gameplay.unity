@@ -1847,8 +1847,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6, y: 487}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -20.09, y: 377.67}
+  m_SizeDelta: {x: 85.17, y: 89.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &174763452
 MonoBehaviour:
@@ -2883,8 +2883,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9, y: 487}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -21.85, y: 376.52}
+  m_SizeDelta: {x: 86.41, y: 100.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &377405897
 MonoBehaviour:
@@ -34059,6 +34059,7 @@ MonoBehaviour:
   red: {fileID: 925412314}
   pauseMenu: {fileID: 207797938}
   audioManager: {fileID: 802604150}
+  showMobileControlsInEditor: 1
 --- !u!4 &1387096299
 Transform:
   m_ObjectHideFlags: 0

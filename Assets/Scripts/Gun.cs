@@ -28,11 +28,13 @@ public class Gun : MonoBehaviour
     }
     void RotateGun()
     {
-        if (Input.mousePosition.x < 0 || Input.mousePosition.x > Screen.width || Input.mousePosition.y < 0 || Input.mousePosition.y >Screen.height)
+        Vector2 aimScreenPosition = GameInput.GetAimScreenPosition();
+
+        if (aimScreenPosition.x < 0 || aimScreenPosition.x > Screen.width || aimScreenPosition.y < 0 || aimScreenPosition.y > Screen.height)
         {
             return; 
         }
-        Vector3 displacement = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 displacement = transform.position - Camera.main.ScreenToWorldPoint(aimScreenPosition);
         float angle = Mathf.Atan2(displacement.y, displacement.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle + rotateOffSet);
         if (angle < -90 || angle > 90)
@@ -45,7 +47,7 @@ public class Gun : MonoBehaviour
     }
     void Shoot()
     {
-        if (Input.GetMouseButtonDown(0) && currentAmmo > 0 && Time.time > nextShot)
+        if (GameInput.ConsumeFirePressed() && currentAmmo > 0 && Time.time > nextShot)
         {
             nextShot = Time.time + shotDelay;
             Instantiate(bulletPrefabs, firePos.position, firePos.rotation);
@@ -57,7 +59,7 @@ public class Gun : MonoBehaviour
     }
     void ReLoad()
     {
-        if (Input.GetMouseButtonDown(1) && currentAmmo < maxAmmo)
+        if (GameInput.ConsumeReloadPressed() && currentAmmo < maxAmmo)
         { 
             currentAmmo = maxAmmo;
             UpdateAmmoText();

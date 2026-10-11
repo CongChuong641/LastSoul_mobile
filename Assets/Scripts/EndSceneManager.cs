@@ -9,6 +9,7 @@ public class EndSceneManager : MonoBehaviour
 
     void Start()
     {
+        UiEventSystemBootstrap.Ensure();
         Time.timeScale = 1f; 
 
         isWin = PlayerPrefs.GetInt("IsWin", 0) == 1;

@@ -7,6 +7,7 @@ public class MainMenuManager : MonoBehaviour
 
     void Start()
     {
+        UiEventSystemBootstrap.Ensure();
         Time.timeScale = 1f; 
         if (audioManager != null)
         {

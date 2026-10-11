@@ -14,15 +14,45 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject red;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private AudioManager audioManager;
+    [SerializeField] private bool showMobileControlsInEditor = true;
    
     void Start()
     {
+        SetupMobileCamera();
         currentEnergy = 0;
         UpdateEnergybar();
         boss.SetActive(false);
         Time.timeScale = 1f; // Bắt đầu game bình thường
         audioManager.PlayDefaultAudio();
         red.SetActive(false);
+
+        if (Application.isMobilePlatform || ShouldShowMobileControlsInEditor())
+        {
+            MobileHUDBuilder.Build(this);
+        }
+    }
+
+    private bool ShouldShowMobileControlsInEditor()
+    {
+#if UNITY_EDITOR
+        return showMobileControlsInEditor;
+#else
+        return false;
+#endif
+    }
+
+    private void SetupMobileCamera()
+    {
+        if (!Application.isMobilePlatform && !ShouldShowMobileControlsInEditor())
+        {
+            return;
+        }
+
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null && mainCamera.GetComponent<MobileCameraFraming>() == null)
+        {
+            mainCamera.gameObject.AddComponent<MobileCameraFraming>();
+        }
     }
 
 
@@ -42,6 +72,11 @@ public class GameManager : MonoBehaviour
     }
     private void CallBoss()
     {
+        if (bossCalled || currentEnergy < energyThreshold)
+        {
+            return;
+        }
+
         bossCalled = true;
         boss.SetActive(true);
         enemySpaner.SetActive(false); //Ngung sinh enemy
@@ -60,6 +95,7 @@ public class GameManager : MonoBehaviour
     // Hiển thị pause menu
     public void PauseGameMenu()
     {
+        MobileHUDBuilder.SetInteractable(false);
         if (pauseMenu != null)
         {
             pauseMenu.SetActive(true);
@@ -69,6 +105,7 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        MobileHUDBuilder.SetInteractable(true);
         if (pauseMenu != null)
         {
             pauseMenu.SetActive(false);

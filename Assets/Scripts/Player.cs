@@ -25,14 +25,14 @@ public class Player : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (GameInput.ConsumePausePressed())
         {
             gameManager.PauseGameMenu();
         }
     }
     void MovePlayer()
     {
-        Vector2 playerInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 playerInput = GameInput.GetMoveInput();
         rb.linearVelocity = playerInput.normalized * moveSpeed;
         if(playerInput.x < 0)
         {
